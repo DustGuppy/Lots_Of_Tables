@@ -1,6 +1,7 @@
 package edu.psu.behrend.cs.dar5602.homework2.controllers;
 
 import edu.psu.behrend.cs.dar5602.homework2.dtos.UserOrder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -17,15 +18,21 @@ public class UserOrderController {
      * @return inventory string
      */
     @GetMapping (path = "/inventory")
-    public String getInventory(){
-        String inventory = "Small Tables; $350" +
-                "Large Tables; $750" +
-                "Long Tables; $500" +
-                "Round Tables; $1000";
+    public String getInventory(Model model){
+        String inventory =
 
+                "Small Tables: $350," +
+                " Large Tables: $750," +
+                " Long Tables: $500," +
+                " Round Tables: $1000";
+            model.addAttribute("inventory", orderHashMap);
         return inventory;
     }
 
+    @GetMapping (path = "/getOrder")
+    public UserOrder getOrder(@RequestParam (value = "id") int id){
+        return this.orderHashMap.get(id);
+    }
 
     /**
      * Creates a new order for a new customer
@@ -33,14 +40,14 @@ public class UserOrderController {
      * @return maxKey
      */
     @PostMapping(path = "/createOrder")
-    public int createOrder(@RequestParam UserOrder order){
-        if(this.orderHashMap.isEmpty()){
+    public int createOrder(@RequestBody UserOrder order){
+        if(this.orderHashMap == null){
             this.orderHashMap = new HashMap<>();
         }
 
         int maxKey = 0;
 
-        if(!this.orderHashMap.isEmpty()){
+        if(this.orderHashMap.size() !=  1){
             maxKey = Collections.max( this.orderHashMap.keySet() ) + 1;
         }
 
@@ -55,7 +62,7 @@ public class UserOrderController {
      * @param order is the new order that they want
      */
     @PutMapping (path = "/updateOrder")
-    public void updateOrder(@RequestParam (value = "id") int id, @RequestParam UserOrder order){
+    public void updateOrder(@RequestParam ("id") int id, @RequestBody UserOrder order){
         if(this.orderHashMap.containsKey(id)){
             this.orderHashMap.put(id,order);
         }
@@ -67,7 +74,7 @@ public class UserOrderController {
      * @param order user's order
      */
     @DeleteMapping (path = "/deleteOrder")
-    public void deleteOrder (@RequestParam ("id") int id, @RequestParam UserOrder order){
+    public void deleteOrder (@RequestParam ("id") int id, @RequestBody UserOrder order){
         if(this.orderHashMap.containsKey(id)){
             this.orderHashMap.remove(id, order);
         }
