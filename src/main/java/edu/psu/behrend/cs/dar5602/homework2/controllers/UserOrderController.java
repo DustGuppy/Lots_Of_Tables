@@ -60,5 +60,16 @@ public class UserOrderController {
             this.orderHashMap.put(id,order);
         }
     }
-    @
+
+    /**
+     * Method to delete user's order
+     * @param id id of the user
+     * @param order user's order
+     */
+    @DeleteMapping (path = "/deleteOrder")
+    public void deleteOrder (@RequestParam ("id") int id, @RequestParam UserOrder order){
+        if(this.orderHashMap.containsKey(id)){
+            this.orderHashMap.remove(id, order);
+        }
+    }
 }
