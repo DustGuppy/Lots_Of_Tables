@@ -12,6 +12,11 @@ public class UserOrderController {
     private HashMap<Integer, UserOrder> userOrderHashMap;
 
 
+    @GetMapping (path = "/defaultUserOrder")
+    public UserOrder test(){
+        return new UserOrder(0,0,0,0);
+    }
+
     /**
      * Method to get items available to order
      * @return inventory string

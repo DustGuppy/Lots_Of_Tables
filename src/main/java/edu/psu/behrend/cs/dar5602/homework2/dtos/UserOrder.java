@@ -1,19 +1,17 @@
 package edu.psu.behrend.cs.dar5602.homework2.dtos;
 
 public class UserOrder {
-    public int smallTable = 0;
-    public int largeTable = 0;
-    public int longTable = 0;
-    public int roundTable = 0;
+    public int smallTable;
+    public int largeTable;
+    public int longTable;
+    public int roundTable;
 
-
-    public UserOrder(){
+    public UserOrder(int smallTable, int largeTable, int longTable, int roundTable) {
         this.smallTable = smallTable;
         this.largeTable = largeTable;
         this.longTable = longTable;
         this.roundTable = roundTable;
     }
-
 
     public int getSmallTable() {
         return smallTable;

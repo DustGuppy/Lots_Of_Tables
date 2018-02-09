@@ -16,7 +16,7 @@ public class UserInformationController {
      * Default json constructor
      * @return new user object
      */
-    @GetMapping(path = "/test")
+    @GetMapping(path = "/defaultUserInformation")
     public UserInformation test()
     {
         return new UserInformation("fname", "lname", "email", "pass");
