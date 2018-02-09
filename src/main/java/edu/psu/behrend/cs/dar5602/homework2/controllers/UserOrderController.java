@@ -1,7 +1,6 @@
 package edu.psu.behrend.cs.dar5602.homework2.controllers;
 
 import edu.psu.behrend.cs.dar5602.homework2.dtos.UserOrder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -10,28 +9,26 @@ import java.util.HashMap;
 @RestController
 public class UserOrderController {
 
-    private HashMap<Integer, UserOrder> orderHashMap;
+    private HashMap<Integer, UserOrder> userOrderHashMap;
 
 
     /**
      * Method to get items available to order
      * @return inventory string
      */
-    @GetMapping (path = "/inventory")
-    public String getInventory(Model model){
-        String inventory =
-
-                "Small Tables: $350," +
-                " Large Tables: $750," +
-                " Long Tables: $500," +
-                " Round Tables: $1000";
-            model.addAttribute("inventory", orderHashMap);
-        return inventory;
+    @GetMapping (path = "/getUserOrder")
+    public UserOrder getUserOrder(@RequestParam ("id") int id){
+        return userOrderHashMap.get(id);
     }
 
+    /**
+     * Returns the users order
+     * @param id users id
+     * @return user order
+     */
     @GetMapping (path = "/getOrder")
     public UserOrder getOrder(@RequestParam (value = "id") int id){
-        return this.orderHashMap.get(id);
+        return this.userOrderHashMap.get(id);
     }
 
     /**
@@ -41,17 +38,17 @@ public class UserOrderController {
      */
     @PostMapping(path = "/createOrder")
     public int createOrder(@RequestBody UserOrder order){
-        if(this.orderHashMap == null){
-            this.orderHashMap = new HashMap<>();
+        if(this.userOrderHashMap == null){
+            this.userOrderHashMap = new HashMap<>();
         }
 
         int maxKey = 0;
 
-        if(this.orderHashMap.size() !=  1){
-            maxKey = Collections.max( this.orderHashMap.keySet() ) + 1;
+        if(this.userOrderHashMap.size() !=  1){
+            maxKey = Collections.max( this.userOrderHashMap.keySet() ) + 1;
         }
 
-        this.orderHashMap.put(maxKey, order);
+        this.userOrderHashMap.put(maxKey, order);
 
         return maxKey;
     }
@@ -63,8 +60,8 @@ public class UserOrderController {
      */
     @PutMapping (path = "/updateOrder")
     public void updateOrder(@RequestParam ("id") int id, @RequestBody UserOrder order){
-        if(this.orderHashMap.containsKey(id)){
-            this.orderHashMap.put(id,order);
+        if(this.userOrderHashMap.containsKey(id)){
+            this.userOrderHashMap.put(id,order);
         }
     }
 
@@ -75,8 +72,8 @@ public class UserOrderController {
      */
     @DeleteMapping (path = "/deleteOrder")
     public void deleteOrder (@RequestParam ("id") int id, @RequestBody UserOrder order){
-        if(this.orderHashMap.containsKey(id)){
-            this.orderHashMap.remove(id, order);
+        if(this.userOrderHashMap.containsKey(id)){
+            this.userOrderHashMap.remove(id, order);
         }
     }
 }

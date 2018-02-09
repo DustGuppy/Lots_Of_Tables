@@ -1,10 +1,10 @@
 package edu.psu.behrend.cs.dar5602.homework2.dtos;
 
 public class UserOrder {
-    int smallTable = 0;
-    int largeTable = 0;
-    int longTable = 0;
-    int roundTable = 0;
+    public int smallTable = 0;
+    public int largeTable = 0;
+    public int longTable = 0;
+    public int roundTable = 0;
 
 
     public UserOrder(){

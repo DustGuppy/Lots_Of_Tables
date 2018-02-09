@@ -1,12 +1,13 @@
 package edu.psu.behrend.cs.dar5602.homework2.dtos;
 
-public class UserInformation {
-    String fname;
-    String lname;
-    String email;
-    String password;
 
-    public UserInformation(){
+public class UserInformation {
+    private String fname;
+    private String lname;
+    private String email;
+    private String password;
+
+    public UserInformation(String fname, String lname, String email, String password) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
