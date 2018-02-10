@@ -18,12 +18,17 @@ public class UserOrderController {
     }
 
     /**
-     * Method to get items available to order
-     * @return inventory string
+     *
+     * @return menu for customer
      */
-    @GetMapping (path = "/getUserOrder")
-    public UserOrder getUserOrder(@RequestParam ("id") int id){
-        return userOrderHashMap.get(id);
+    @GetMapping (path = "/menu")
+    public String getMenu(){
+        String menu = "Small Tables;$400";
+        menu += "Large Tables;$600";
+        menu += "Long Tables;$300";
+        menu += "Round Tables;$4000";
+
+        return menu;
     }
 
     /**
@@ -31,8 +36,8 @@ public class UserOrderController {
      * @param id users id
      * @return user order
      */
-    @GetMapping (path = "/getOrder")
-    public UserOrder getOrder(@RequestParam (value = "id") int id){
+    @GetMapping (path = "/getUserOrder")
+    public UserOrder getUserOrder(@RequestParam (value = "id") int id){
         return this.userOrderHashMap.get(id);
     }
 
@@ -42,7 +47,7 @@ public class UserOrderController {
      * @return maxKey
      */
     @PostMapping(path = "/createOrder")
-    public int createOrder(@RequestBody UserOrder order){
+    public int createUserOrder(@RequestBody UserOrder order){
         if(this.userOrderHashMap == null){
             this.userOrderHashMap = new HashMap<>();
         }
@@ -64,7 +69,7 @@ public class UserOrderController {
      * @param order is the new order that they want
      */
     @PutMapping (path = "/updateOrder")
-    public void updateOrder(@RequestParam ("id") int id, @RequestBody UserOrder order){
+    public void updateUserOrder(@RequestParam ("id") int id, @RequestBody UserOrder order){
         if(this.userOrderHashMap.containsKey(id)){
             this.userOrderHashMap.put(id,order);
         }
@@ -76,7 +81,7 @@ public class UserOrderController {
      * @param order user's order
      */
     @DeleteMapping (path = "/deleteOrder")
-    public void deleteOrder (@RequestParam ("id") int id, @RequestBody UserOrder order){
+    public void deleteUserOrder (@RequestParam ("id") int id, @RequestBody UserOrder order){
         if(this.userOrderHashMap.containsKey(id)){
             this.userOrderHashMap.remove(id, order);
         }

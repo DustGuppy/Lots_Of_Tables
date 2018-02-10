@@ -21,8 +21,6 @@ public class UserInformationController {
     {
         return new UserInformation("fname", "lname", "email", "pass");
     }
-
-
     /**
      * Gets the users information
      * @return users information
